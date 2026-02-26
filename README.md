@@ -1,37 +1,36 @@
-# Dudu Sky Add-on
+# LMKD PSI Activation + Misc
 An extension of the SkyScene Add-on, where it achieves the effect of preventing background apps from dying by modifying memory management mechanisms (lmk, psi). And by improving background process management, it's possible to achieve a smoother and more energy-efficient system.
 
 If you want an optimization that improves the kernel's memory management behavior, check out the [SkyScene Add-on](https://github.com/WeirdMidas/SkySceneAddon), it specifically handles this aspect, such as swapping, reclaim, and others.
 
 ### Features
+- Pure background memory management optimization module (lmk, psi), without other side effects or placebos, and compatible with all major platforms, from Qualcomm to Mediatek, Unisoc, and others. It only requires using lmkd as the primary LMK module in the ROM
+- Utilize lmkd's modern pressure mechanism, PSI (pressure stall information), allowing lmkd to kill background processes based on whether the system can handle keeping them running in memory. It doesn't depend on fixed thresholds or anything like that
+  - Based on hardware differences, not as a "one formula" for everyone, differentiate lmkd parameters based on hardware and others, allowing each device to have its efficiency respected
+- Improve oom reaper scheduling, make it execute with the policies we want, as in the foreground cpuset and with the affinity in the big/prime cores, reducing the stalls that occur when killing a process in the background
 
-#### LMKD-Side (Modern Solution / Android 11+)
-- Texto, Texto, Texto
-
-#### Old LMK-Side (Old Solution / Android 10-)
-- Texto, Texto, Texto
-  
 ## Requirement
 
 - Compatible with ARM64 and standard ARM
 - Magisk, KSU or Apatch, the most up-to-date version possible if you can
-- Android 8 or higher. Not compatible with versions below 8
+- Android 10 or higher. Not compatible with versions below 10
 - You need at least 3GB of RAM to use it. Modern Android requires this as a minimum amount of RAM. However, it is still compatible with devices that have less RAM
 - It is recommended to use an additional busybox module for situations where the module cannot use the busybox from Magisk or the ROM
 - Depending on the ROM or kernel you are using on your device, you may experience compatibility issues if they are heavily modified
 
 ## Installation
 
-- Install this module, restart your phone, and open `/sdcard/Android/lmk_conf.txt` after rebooting to modify how much swap you want LMKD to handle before it starts looking for kills, the wait time before killing or not, and other LMKD or Old LMK parameters (if available). This will take effect after rebooting.
+- Install this module, restart your phone, wait 20 seconds before the final optimizations are applied, and voila, you can have fun with your device.
 - Simple LMK is currently not supported.
 - Per-Process LMK is currently not supported.
+- Old LMK is currently not supported.
 
 ## FAQ
 
 ### Sources
 
 - Official information about [LMKD (Low Memory Killer Daemon)](https://source-android-com.translate.goog/docs/core/perf/lmkd?_x_tr_sl=en&_x_tr_tl=pt&_x_tr_hl=pt&_x_tr_pto=tc) provided by Google.
-- Studies in psychology involving the human perception of "instantaneous" and the perception of "fluid continuity" in ordinary people and/or telephone users.
+- Some tips and reports on how the lmkd + oom reaper scheduling works on the AxionOS custom ROM. This is beneficial for reducing stalls that occur due to high memory usage when lmkd needs to kill something.
 
 ### Suggestions for Complementary Modules
 
